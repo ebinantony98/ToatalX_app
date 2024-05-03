@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toatlx_machine_test/view/auth/view/login_screen.dart';
 import 'dart:async';
 
 import 'package:toatlx_machine_test/view/homescreen/home_screen.dart';
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => HomeScreen(),
+          builder: (_) => LoginScreen(),
         ),
       );
     });
@@ -29,7 +30,6 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // You can replace this with your TotalX logo
             Image.asset(
               'assets/totalx_logo.png',
               width: 150,
