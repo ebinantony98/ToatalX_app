@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toatlx_machine_test/view/auth/view/otp_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -61,7 +62,6 @@ class LoginScreen extends StatelessWidget {
                       text: 'Terms and Conditions',
                       style: TextStyle(
                         color: Colors.blue,
-                        // fontWeight: FontWeight.bold,
                       ),
                       // onTap: () {
                       //   // Navigate to Terms and Conditions page
@@ -74,7 +74,6 @@ class LoginScreen extends StatelessWidget {
                       text: 'Privacy Policy',
                       style: TextStyle(
                         color: Colors.blue,
-                        // fontWeight: FontWeight.bold,
                       ),
                       // onTap: () {
                       //   // Navigate to Privacy Policy page
@@ -92,7 +91,10 @@ class LoginScreen extends StatelessWidget {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    // Add logic to get OTP here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OtpScreen()),
+                    );
                   },
                   child: Text(
                     'Get OTP',

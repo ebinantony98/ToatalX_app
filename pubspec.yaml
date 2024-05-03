@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_svg: ^2.0.10+1
   provider: ^6.1.2
+  pin_code_fields: ^8.0.1
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
   assets:
       - assets/totalx_logo.png
       - assets/mobile.jpg
+      - assets/otp.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

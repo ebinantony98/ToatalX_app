@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:toatlx_machine_test/view/auth/view/login_screen.dart';
 import 'dart:async';
 
-import 'package:toatlx_machine_test/view/homescreen/home_screen.dart';
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
