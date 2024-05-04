@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:toatlx_machine_test/view/auth/controller/authcontroller.dart';
 import 'package:toatlx_machine_test/view/auth/view/otp_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -7,6 +9,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.watch<AuthController>();
     return Scaffold(
       body: Center(
         child: Padding(
@@ -37,6 +40,7 @@ class LoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.grey.shade300)),
                 child: TextFormField(
+                  controller: controller.phoneController,
                   keyboardType: TextInputType.phone,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: const InputDecoration(
@@ -91,10 +95,18 @@ class LoginScreen extends StatelessWidget {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => OtpScreen()),
-                    );
+                    if (controller.phoneController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Mobile Number is Empty'),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OtpScreen()),
+                      );
+                    }
                   },
                   child: Text(
                     'Get OTP',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toatlx_machine_test/view/auth/controller/authcontroller.dart';
 import 'package:toatlx_machine_test/view/homescreen/controller/homecontroller.dart';
 import 'package:toatlx_machine_test/view/splashscreen/splash_screen.dart';
 
@@ -7,6 +8,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => HomeController()),
+      ChangeNotifierProvider(create: (_) => AuthController()),
     ],
     child: const MyApp(),
   ));
