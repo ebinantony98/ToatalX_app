@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:toatlx_machine_test/view/homescreen/models/user_model.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class HomeController extends ChangeNotifier {
   List<User> users = [];
+  String selectedSortingOption = 'All';
 
   Future<void> getAllUsers() async {
     users = [
@@ -35,5 +38,47 @@ class HomeController extends ChangeNotifier {
       )
     ];
     notifyListeners();
+  }
+
+  Future<void> selectImage(BuildContext context) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      // Use the picked image
+      File image = File(pickedFile.path);
+    } else {}
+  }
+
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+  set isLoading(bool isLoading) {
+    _isLoading = isLoading;
+    notifyListeners();
+  }
+
+  updateSelection(value) {
+    selectedSortingOption = value ?? "";
+    notifyListeners();
+  }
+
+  TextEditingController textEditingController = TextEditingController();
+  List<User> searchList = [];
+  search(String v) {
+    isLoading = true;
+    if (v.isEmpty) {
+      isLoading = false;
+      searchList = users;
+    }
+    if (v.isNotEmpty) {
+      searchList = [];
+      for (User item in users) {
+        if (item.name.toString().startsWith(v)) {
+          searchList.add(item);
+        }
+      }
+      isLoading = false;
+    }
+    isLoading = false;
   }
 }

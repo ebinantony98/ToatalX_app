@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:toatlx_machine_test/view/homescreen/home_screen.dart';
+import 'package:toatlx_machine_test/view/homescreen/view/home_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
