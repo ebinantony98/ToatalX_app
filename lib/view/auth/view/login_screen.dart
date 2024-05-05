@@ -98,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                     if (controller.phoneController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Mobile Number is Empty'),
+                          content: Text('Enter Phone Number'),
                         ),
                       );
                     } else {
