@@ -132,9 +132,12 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 10,
             ),
-            Text(
-              "Users List",
-              style: TextStyle(fontWeight: FontWeight.w700),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Users List",
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
             ),
             controller.textEditingController.text.isNotEmpty &&
                     controller.searchList.length == 0

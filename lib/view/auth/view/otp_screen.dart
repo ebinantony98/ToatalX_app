@@ -1,8 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:toatlx_machine_test/view/homescreen/view/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:toatlx_machine_test/view/auth/controller/authcontroller.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
@@ -12,66 +11,32 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  int _secondsLeft = 60;
-  late Timer _timer;
-  final formKey = GlobalKey<FormState>();
-  TextEditingController otpController = TextEditingController();
-
   @override
   void initState() {
+    final controller = Provider.of<AuthController>(context, listen: false);
+
     super.initState();
-    otpController = TextEditingController();
-    startTimer();
+    controller.otpController = TextEditingController();
+    controller.startTimer();
   }
 
-  @override
-  void dispose() {
-    _timer.cancel();
-    otpController.dispose();
-    super.dispose();
-  }
-
-  void startTimer() {
-    const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(oneSec, (Timer timer) {
-      if (_secondsLeft == 0) {
-        timer.cancel();
-      } else {
-        setState(() {
-          _secondsLeft--;
-        });
-      }
-    });
-  }
-
-  void validateAndNavigate() {
-    final form = formKey.currentState;
-    if (form!.validate()) {
-      form.save(); // Save entered OTP
-      // Simulate OTP validation (replace with your actual logic)
-      if (otpController.text == "123456") {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Invalid OTP'),
-          ),
-        );
-      }
-    }
-  }
+  // @override
+  // void dispose() {
+  //   final controller = Provider.of<AuthController>(context, listen: false);
+  //   controller.timer.cancel();
+  //   controller.otpController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final controllers = context.watch<AuthController>();
     return Scaffold(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Form(
-            key: formKey,
+            key: controllers.formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +90,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: PinCodeTextField(
-                    controller: otpController,
+                    controller: controllers.otpController,
                     appContext: context,
                     length: 6,
                     obscureText: false,
@@ -144,7 +109,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       if (value == null || value.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Please enter OTP'),
+                            content: Text('Invalid OTP'),
                           ),
                         );
                       }
@@ -156,7 +121,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(height: 5),
                 Center(
                   child: Text(
-                    '$_secondsLeft Sec',
+                    '${controllers.secondsLeft} Sec',
                     style: const TextStyle(
                       color: Colors.red,
                       fontSize: 16,
@@ -190,7 +155,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextButton(
-                    onPressed: validateAndNavigate,
+                    onPressed: () {
+                      controllers.validateAndNavigate(context);
+                    },
                     child: const Text(
                       'Verify',
                       style: TextStyle(
